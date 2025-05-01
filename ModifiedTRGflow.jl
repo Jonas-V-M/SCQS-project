@@ -29,14 +29,12 @@ function run_sing!(scheme, trscheme, criterion;
             # Calculate singular values
             T = scheme.T
             U, S, V = tsvd(T; trunc=trscheme)
-            push!(singular_values, diag(S))
-            
-
+            push!(singular_values, S.data)
             steps += 1
             crit = criterion(steps, data)
         end
 
-        @infov 1 "Simulation finished\n $(stopping_info(criterion, steps, data))\n Elapsed time: $(t)s\n Iterations: $steps"
+        #@infov 1 "Simulation finished\n $(stopping_info(criterion, steps, data))\n Elapsed time: $(t)s\n Iterations: $steps"
         # @infov 1 "Elapsed time: $(t)s"
     end
     return data, singular_values
